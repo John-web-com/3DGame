@@ -1,0 +1,181 @@
+/* ============================
+   三轴控制器容器
+   ============================ */
+.three-axis-controller {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  z-index: 100;
+  display: flex;
+  gap: 10px;
+  background: rgba(15, 23, 42, 0.92);
+  backdrop-filter: blur(16px);
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 14px 14px;
+  box-shadow:
+    0 -4px 30px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* ========== 单轴列 ========== */
+.joy-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 58px;
+  transition: opacity 0.2s ease;
+}
+.joy-col.disabled { opacity: 0.45; pointer-events: none; }
+
+/* ========== 头部标签 ========== */
+.joy-header { display: flex; flex-direction: column; align-items: center; gap: 1px; }
+.joy-label { font-size: 12px; font-weight: 700; letter-spacing: 1px; }
+.joy-val { font-size: 11px; font-weight: 600; font-family: monospace; }
+
+/* ========== +/- 按钮 ========== */
+.j-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 24px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.12s ease;
+  user-select: none;
+  flex-shrink: 0;
+}
+.j-btn:hover:not(:disabled) { background: rgba(255, 255, 255, 0.14); transform: scale(1.08); }
+.j-btn:active:not(:disabled) { transform: scale(0.94); }
+.j-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+/* ========== 圆形空推杆底座 ========== */
+.joy-base {
+  position: relative;
+  width: 52px;
+  height: 80px;
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+  border-radius: 26px;
+  overflow: hidden;
+}
+.joy-base:active { cursor: grabbing; }
+
+.joy-bg {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 26px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* 十字刻度线 */
+.joy-cross {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+.cross-h {
+  position: absolute;
+  width: 65%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.11);
+}
+.cross-v {
+  position: absolute;
+  width: 1px;
+  height: 85%;
+  background: rgba(255, 255, 255, 0.11);
+}
+
+/* 方向箭头 */
+.joy-arrows { position: absolute; inset: 3px; pointer-events: none; }
+.arr-up,
+.arr-down {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255, 255, 255, 0.22);
+  font-size: 8px;
+  font-weight: 800;
+  line-height: 1;
+}
+.arr-up { top: 2px; }
+.arr-down { bottom: 2px; }
+
+/* ========== 推杆头 - 绝对定位居中，translateY偏移 ==========
+   value=0 时：transform = translate(-50%, -50%) → 正好居中
+   value>0 时（上推）：translateY 减少负值 → 往上移动
+   value<0 时（下推）：translateY 增加正值 → 往下移动
+*/
+.joy-knob {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, rgba(30,41,59,0.95), rgba(15,23,42,0.98));
+  border: 2.5px solid #666;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  transition: transform 0.04s ease-out, border-color 0.2s, box-shadow 0.2s;
+  cursor: grab;
+  will-change: transform;
+}
+.joy-knob:active { cursor: grabbing; }
+
+.knob-txt { font-size: 11px; font-weight: 800; }
+.joy-col.x .knob-txt { color: #ef4444; }
+.joy-col.y .knob-txt { color: #22c55e; }
+.joy-col.z .knob-txt { color: #3b82f6; }
+
+/* 发光效果 */
+.joy-glow {
+  position: absolute;
+  inset: -5px;
+  border-radius: 50%;
+  filter: blur(10px);
+  opacity: 0.35;
+  pointer-events: none;
+  animation: glowPulse 1s ease-in-out infinite alternate;
+}
+@keyframes glowPulse {
+  from { opacity: 0.25; transform: scale(0.95); }
+  to { opacity: 0.45; transform: scale(1.05); }
+}
+
+/* ========== 激活态 ========== */
+.joy-col.active .joy-bg {
+  border-color: rgba(99,102,241,0.32);
+  background: rgba(99,102,241,0.06);
+}
+
+/* ========== 响应式 ========== */
+@media (max-width: 768px) {
+  .three-axis-controller {
+    bottom: 14px; right: 12px;
+    padding: 10px 10px; gap: 7px; border-radius: 14px;
+  }
+  .joy-col { width: 50px; gap: 3px; }
+  .joy-base { width: 44px; height: 68px; border-radius: 22px; }
+  .joy-bg { border-radius: 22px; }
+  .joy-knob { width: 28px; height: 28px; }
+  .j-btn { width: 24px; height: 20px; font-size: 13px; }
+  .joy-label { font-size: 10px; }
+  .joy-val { font-size: 9px; }
+  .knob-txt { font-size: 9px; }
+}

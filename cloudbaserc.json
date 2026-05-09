@@ -1,0 +1,47 @@
+{
+  "envId": "seven-website-8gwpkoon2ce77ee5",
+  "functionRoot": "./cloudfunctions",
+  "functions": [
+    {
+      "name": "userAuth",
+      "timeout": 15,
+      "envVariables": {},
+      "runtime": "Nodejs18.15",
+      "memorySize": 256,
+      "installDependency": true,
+      "handler": "index.main"
+    },
+    {
+      "name": "getRanking",
+      "timeout": 15,
+      "envVariables": {},
+      "runtime": "Nodejs18.15",
+      "memorySize": 256,
+      "installDependency": true,
+      "handler": "index.main"
+    },
+    {
+      "name": "saveScore",
+      "timeout": 15,
+      "envVariables": {},
+      "runtime": "Nodejs18.15",
+      "memorySize": 256,
+      "installDependency": true,
+      "handler": "index.main"
+    }
+  ],
+  "framework": {
+    "name": "react",
+    "plugins": {
+      "client": {
+        "use": "@cloudbase/framework-plugin-website",
+        "inputs": {
+          "outputPath": "./dist",
+          "cloudPath": "/3d-game",
+          "envId": "seven-website-8gwpkoon2ce77ee5"
+        }
+      }
+    }
+  },
+  "$schema": "https://framework-1258016615.tcloudbaseapp.com/schema/latest.json"
+}
