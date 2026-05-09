@@ -1,0 +1,1 @@
+{"name": "getRanking", "version": "1.0.0", "description": "排行榜查询云函数 - 直接查询数据库实现毫秒级响应", "main": "index.js", "scripts": {}, "dependencies": {"wx-server-sdk": "~2.6.3"}, "engines": {"node": ">=16"}}
