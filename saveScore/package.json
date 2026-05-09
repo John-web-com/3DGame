@@ -1,0 +1,1 @@
+{"name": "saveScore", "version": "1.0.0", "description": "保存游戏得分云函数", "main": "index.js", "scripts": {}, "dependencies": {"wx-server-sdk": "~2.6.3"}, "engines": {"node": ">=16"}}
